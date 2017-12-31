@@ -1,0 +1,53 @@
+
+<div class="container-fuid meta_nav">
+
+    <div class="meta_nav_left" style="float:left;padding-left:10%;text-align:center">
+        <p class="text-warning">
+            欢迎光临好时光保健商城
+        </p>
+    </div>
+    <div class="meta_nav_right">
+        <a href="">
+            <span class="glyphicon glyphicon-shopping-cart">
+                查看当前购物车
+            </span>
+        </a>
+        <a href="">
+            <span class="glyphicon glyphicon-user">
+                新顾客注册
+            </span>
+        </a>
+        {% if not session.logged_in %}
+            <a href="">
+            <span class="glyphicon glyphicon-log-in">
+                老顾客登录
+            </span>
+            </a>
+        {% else %}
+            <a href="">
+            <span class="glyphicon glyphicon-certificate">
+                订单查看
+            </span>
+            </a>
+            <a href="">
+            <span class="glyphicon glyphicon-cog">
+                用户信息修改
+            </span>
+            </a>
+            <a href="">
+            <span class="glyphicon glyphicon-arrow-down">
+                用户登出
+            </span>
+            </a>
+        {% endif %}
+
+
+
+
+
+
+    </div>
+
+
+</div>
+
