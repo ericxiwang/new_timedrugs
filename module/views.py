@@ -16,7 +16,7 @@ def index():
     user = 'ericwang'
     ip = request.remote_addr
 
-    return render_template('index.html', title=title, user=user, ip =ip)
+    return render_template('inventory.html', title=title, user=user, ip =ip)
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0',port=8000)
 
