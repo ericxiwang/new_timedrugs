@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+{% block user_register %}
+<script src="../static/js/validator.min.js"></script>
+
+<div class='col-md-9 col-lg-9 panel panel-danger product_list' style='float:right;padding-top:15px;'>
+<form action='user_register.php' method='POST' class="form-horizontal" role="form" data-toggle="validator">
+	<!--basic user info-->
+	<div id='basic_info' class='well'>
+	<div class="form-group">
+      <label class="control-label col-sm-2" for="email" >姓:</label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="last_name" name='last_name' placeholder="您贵姓？" required>
+
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email" >名:</label>
+      <div class="col-md-4">
+        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="你的大名？" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="email">邮箱:</label>
+      <div class="col-md-4">
+        <input type="email" class="form-control" id="email"  name="email" placeholder="Enter email" data-error="请确认邮箱格式正确" required>
+        <?php
+        user_register();
+
+        ?>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-2" for="pwd">设置口令:</label>
+      	<div class="col-md-4">
+      		<input type="password" data-minlength="6" class="form-control" id="inputPassword" name="password" placeholder="设置口令,长度不小于6位" required>
+
+
+
+      		<input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="口令不匹配" placeholder="确认口令" required>
+      		<div class="help-block with-errors"></div><span class="help-block">长度不小于6位</span>
+    	</div>
+
+
+	</div>
+	</div>
+
+
+	<!-- extra user info -->
+
+	<div id='extra_info' class='well'>
+		<div class="form-group">
+	      	<label class="control-label col-sm-2" for="email">国家:</label>
+	      	<div class="col-md-4">
+		        <select type="se" class="form-control" id="user_country" name='user_country'>
+		        	<option value='China'>中国大陆</option>
+		        	<option value='Canada'>加拿大</option>
+
+		        	<option value='USA'>美国</option>
+		        	<option value='other'>其它</option>
+		        	<!--<option value='other'>其它</option>-->
+
+		        </select>
+	    	</div>
+		</div>
+
+	    <div class="form-group">
+	    	<label class="control-label col-sm-2" for="email">省/州:</label>
+
+	      	<div class="col-md-4">
+	      	<input type="text" class="form-control" id="user_province" name='user_province' placeholder="请输入省/州">
+	        <!--<select type="se" class="form-control" id="country" >
+	        	<option >aaa</option>
+	        	<option >aaa</option>
+	        	<option >aaa</option>
+	        	<option >aaa</option>
+	        </select>-->
+	    	</div>
+	    </div>
+
+	    <div class="form-group">
+	    	<label class="control-label col-sm-2" for="email">城市</label>
+
+	      	<div class="col-md-4">
+	      	<input type="text" class="form-control" id="user_city" name='user_city'placeholder="请输入城市">
+	        <!--<select type="se" class="form-control" id="country" >
+	        	<option >aaa</option>
+	        	<option >aaa</option>
+	        	<option >aaa</option>
+	        	<option >aaa</option>
+	        </select>-->
+	    	</div>
+	    </div>
+
+
+
+
+	    <div class="form-group">
+      	<label class="control-label col-sm-2" >邮编:</label>
+      		<div class="col-md-4">
+        	<input type="text" class="form-control" id="user_postcode" name='user_postcode' placeholder="请输入邮编">
+     		 </div>
+    	</div>
+    	<div class="form-group">
+      	<label class="control-label col-sm-2" for="email">联系电话:</label>
+      		<div class="col-md-4">
+        	<input type="text" class="form-control" id="user_phone" name='user_phone' placeholder="请输入联系电话">
+     		 </div>
+    	</div>
+    	<div class="form-group">
+      	<label class="control-label col-md-2" >邮寄地址:</label>
+      		<div class="col-md-8">
+        	<input type="text" class="form-control" id="user_mailing_address" name='user_mailing_address' placeholder="请输入邮寄地址">
+     		 </div>
+    	</div>
+
+
+    </div>
+
+
+
+
+
+
+
+    <div class="form-group">
+      <div class="col-md-4">
+        <button type="submit" class="btn btn-danger btn-block">提交注册</button>
+      </div>
+    </div>
+  </form>
+</div>
+    {% endblock %}

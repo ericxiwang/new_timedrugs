@@ -12,13 +12,13 @@
                 查看当前购物车
             </span>
         </a>
-        <a href="">
+        <a href={{ url_for('user_register') }}>
             <span class="glyphicon glyphicon-user">
                 新顾客注册
             </span>
         </a>
         {% if not session.logged_in %}
-            <a href="">
+            <a href={{ url_for('user_login') }}>
             <span class="glyphicon glyphicon-log-in">
                 老顾客登录
             </span>

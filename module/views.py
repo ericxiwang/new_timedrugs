@@ -10,13 +10,23 @@ from werkzeug.utils import secure_filename
 reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
+
 @app.route('/')
+@app.route('/index')
 def index():
     title = '好时光'
     user = 'ericwang'
     ip = request.remote_addr
 
-    return render_template('inventory.html', title=title, user=user, ip =ip)
-if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0',port=8000)
+    return render_template('index.html', title=title, user=user, ip =ip)
+
+@app.route('/user_register')
+def user_register():
+
+    return render_template('user_register.html')
+
+@app.route('/user_login')
+def user_login():
+
+    return render_template('user_login.html')
 
