@@ -3,13 +3,14 @@
 
 import sys
 import os, json, sqlite3
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
-#from module import app
+
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 @app.route('/')
 @app.route('/index')
@@ -25,8 +26,27 @@ def user_register():
 
     return render_template('user_register.html')
 
-@app.route('/user_login')
+@app.route('/user_login', methods=['POST','GET'])
 def user_login():
+    error = None
+    if request.method == 'POST':
+        if request.form['user_email'] == "admin":
+            session['user_email'] = request.form['user_email']
+            print session
+            return redirect(url_for('index'))
+
+
 
     return render_template('user_login.html')
+
+@app.route('/product_recommand')
+def product_recommand():
+
+    return render_template('product_recommand.html')
+
+
+@app.route('/product_promotion')
+def product_promotion():
+
+    return render_template('product_promotion.html')
 
