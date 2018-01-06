@@ -4,13 +4,42 @@
 import sys
 import os, json, sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
+from models import User
+
 
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+
+
+
+
+
+
+
+
+
+
+
+#db.create_all()
+
+
+#admin = User(username="eric",email="admin@abc.com")
+#guest = User(username="guest",email="test@test.com")
+#db.session.add(admin)
+#db.session.add(guest)
+#db.session.commit()
+a = User.query.all()
+for i in a:
+    print "AA",i
+
+
+
+
 
 @app.route('/')
 @app.route('/index')
