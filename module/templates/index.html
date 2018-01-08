@@ -1,118 +1,20 @@
 {% extends "layout.html" %}
 {% block inventory %}
+
+
 <div class="col-md-9 col-lg-9 panel panel-danger product_list" >
       <!-- one inventory unit -->
+    {% for pro_name,pro_o_price in all_products %}
+
       <div class="col-md-3 col-lg-3 panel panel-danger inventory">
       <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
+      <p>{{ pro_name }}</p>
       <p>买3送1</p>
-      <p>$20.00</p>
+      <p>${{ pro_o_price }}</p>
       <button type="button" class="btn btn-danger">在线订购</button>
       </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
-      <!-- one inventory unit -->
-      <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="image/image.jpg"/>
-      <p>海洋单细胞海藻</p>
-      <p>买3送1</p>
-      <p>$20.00</p>
-      <button type="button" class="btn btn-danger">在线订购</button>
-      </div>
+    {% endfor %}
+
 
 
     </div>
