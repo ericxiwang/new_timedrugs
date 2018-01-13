@@ -5,8 +5,8 @@ import sys
 import os, json
 from flask import Flask, render_template, request, redirect, url_for, session,current_app
 from werkzeug.utils import secure_filename
-from models import user_info,product_info,pro_category,menu_category,db
-
+#from models import user_info,product_info,pro_category,menu_category,db
+from models import *
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -35,17 +35,12 @@ def query_nav_left():
 
 @app.route('/')
 @app.route('/index')
-#@left_nav
 def index():
 
-    #ip = request.remote_addr
-    all_products = db.session.query(product_info.pro_name,product_info.pro_o_price).all()
-    print query_nav_left()
-
-
-
+    all_products = db.session.query(product_info.id,product_info.pro_name,product_info.pro_o_price,product_info.pro_img).all()
 
     return render_template('index.html', all_products = all_products,menu_list = query_nav_left())
+
 
 @app.route('/user_register')
 def user_register():
@@ -67,10 +62,20 @@ def user_login():
         #    return redirect(url_for('login'))
         #login_user(user_email, remember=Flase)
         return render_template('index.html')
-
-
-
     return render_template('user_login.html',a = new_query())
+
+@app.route('/product_introduce/<int:id>')
+def product_introduce(id):
+    selected_product = product_info.query.filter_by(id=id).first()
+    if selected_product.promotion_enabled == '1':
+        pro_info = pro_discount.query.filter_by(promotion_id=selected_product.promotion_id).first()
+    else:
+        pro_info=""
+
+    return render_template('product_introduce.html',
+                           selected_product = selected_product,
+                           pro_discount = pro_info,
+                           menu_list = query_nav_left())
 
 @app.route('/product_recommand')
 def product_recommand():

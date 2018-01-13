@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+<script>
+        $(function(){
+            var t = $("#text_box");
+            $("#add").click(function(){
+                t.val(parseInt(t.val())+1)
+                setTotal();
+            })
+
+            $("#min").click(function(){
+
+                if (t.val() > 1)
+                {
+                t.val(parseInt(t.val())-1)
+                setTotal();}
+            })
+            function setTotal(){
+                $("#total").html((parseInt(t.val())*3.95).toFixed(2));
+            }
+            setTotal();
+        })
+</script>
+{% block product_introduce %}
+
+
+<div class="col-md-9 col-lg-9 panel panel-danger product_list" >
+<div class='col-md-5 col-lg-5 panel panel-danger order-page text-danger' style='text-align:center'>
+<h3>{{ selected_product.pro_name }}</h3>
+    <img data-toggle='magnify' class='img-thumbnail preview-pic' src="{{ url_for('static',filename= selected_product.pro_img ) }}" style='height:85%;width:85%'/></div>
+<div class='col-md-4 col-lg-4 panel panel-danger order-page'>
+    <ul class='list-group'>
+        <li class='list-group-item '><h4>产品名称: {{ selected_product.pro_name}}</h4></li>
+        <li class='list-group-item'>产品品牌: {{ selected_product.pro_brand}}</li>
+        <li class='list-group-item'>规格: {{ selected_product.pro_spec}}</li>
+        <li class='list-group-item'>邮寄重量: {{ selected_product.pro_weight}}公斤</li>
+        {% if selected_product.promotion_enabled|string == '1' %}
+            {% if selected_product.pro_type =='1' %}
+            "1"
+            {% elif selected_product.promotion_enabled|string == '2' %}
+            "2"
+            {% endif %}
+        {% endif %}
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+    </div>
+{% endblock %}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from flask_sqlalchemy import SQLAlchemy
-
+#from sqlalchemy import DateTime,Column,Integer
+import datetime
 db = SQLAlchemy()
 
 
@@ -48,5 +49,19 @@ class product_info(db.Model):
     promotion_enabled = db.Column(db.Integer, unique=False, nullable=False)
     whole_sale = db.Column(db.Integer, unique=False, nullable=False)
     pro_recommend = db.Column(db.Integer, unique=False, nullable=False)
+
+
+class pro_discount(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    promotion_id = db.Column(db.Text, unique=False, nullable=False)
+    discount_value = db.Column(db.Integer, unique=False, nullable=False)
+    pro_buy = db.Column(db.Integer, unique=True, nullable=False)
+    pro_get = db.Column(db.Integer, unique=False, nullable=False)
+    pro_type = db.Column(db.Integer, unique=False, nullable=False)
+    dis_start_time = db.Column(db.Integer, unique=False, nullable=False)
+    dis_end_time = db.Column(db.Integer, unique=False, nullable=False)
+    dis_endless = db.Column(db.Integer, unique=False, nullable=False)
+    dis_enabled = db.Column(db.Integer, unique=False, nullable=False)
+    pro_price = db.Column(db.Float(255), unique=False, nullable=False)
 
 
