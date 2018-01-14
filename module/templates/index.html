@@ -7,11 +7,13 @@
     {% for id,pro_name,pro_o_price,pro_img in all_products %}
 
       <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-      <img class="img-thumbnail preview-pic" src="{{ url_for('static',filename= pro_img ) }}"/>
+          <a href="{{ url_for('product_introduce',id = id) }}" role="button" >
+            <img class="img-thumbnail preview-pic" src="{{ url_for('static',filename = pro_img ) }}"/>
+          </a>
       <p>{{ pro_name }}</p>
       <p>买3送1</p>
       <p>${{ pro_o_price }}</p>
-          <a href="{{ url_for('product_introduce',id=id) }}" role="button" class="btn btn-warning">details</a>
+          <a href="{{ url_for('product_introduce',id = id) }}" role="button" class="btn btn-warning">点击详情</a>
       </div>
     {% endfor %}
 

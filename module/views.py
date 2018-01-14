@@ -12,7 +12,7 @@ reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
 app.secret_key = 'timedrugs'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:p2ssw0rd@localhost:3306/timedrugs'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Istuary-1118@192.168.0.110:3306/timedrugs'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -27,7 +27,7 @@ def load_user(email):
 
 def query_nav_left():
     nav_list_1 = db.session.query(menu_category.id,menu_category.menu_cate_name).all()
-    nav_list_2 = db.session.query(pro_category.upper_cate,pro_category.pro_cate_name).all()
+    nav_list_2 = db.session.query(pro_category.upper_cate,pro_category.pro_cate_name,pro_category.id).all()
 
     return nav_list_1,nav_list_2
 
@@ -35,11 +35,25 @@ def query_nav_left():
 
 @app.route('/')
 @app.route('/index')
-def index():
+@app.route('/index/<int:cate_id>')
+def index(cate_id=None):
+    if cate_id != None:
 
-    all_products = db.session.query(product_info.id,product_info.pro_name,product_info.pro_o_price,product_info.pro_img).all()
 
-    return render_template('index.html', all_products = all_products,menu_list = query_nav_left())
+        all_products = db.session.query(product_info.id,
+                                    product_info.pro_name,
+                                    product_info.pro_o_price,
+                                    product_info.pro_img).filter_by(pro_category=cate_id).all()
+        return render_template('index.html', all_products=all_products, menu_list=query_nav_left())
+
+    else:
+
+        all_products = db.session.query(product_info.id,
+                                    product_info.pro_name,
+                                    product_info.pro_o_price,
+                                    product_info.pro_img).all()
+
+        return render_template('index.html', all_products = all_products, menu_list = query_nav_left())
 
 
 @app.route('/user_register')
@@ -66,15 +80,17 @@ def user_login():
 
 @app.route('/product_introduce/<int:id>')
 def product_introduce(id):
-    selected_product = product_info.query.filter_by(id=id).first()
-    if selected_product.promotion_enabled == '1':
-        pro_info = pro_discount.query.filter_by(promotion_id=selected_product.promotion_id).first()
+    selected_product = product_info.query.filter_by(id = id).first()
+
+    if selected_product.promotion_enabled == 1:
+        discount_info = pro_discount.query.filter_by(promotion_id=selected_product.promotion_id).first()
+
     else:
-        pro_info=""
+        discount_info=""
 
     return render_template('product_introduce.html',
                            selected_product = selected_product,
-                           pro_discount = pro_info,
+                           discount_info = discount_info,
                            menu_list = query_nav_left())
 
 @app.route('/product_recommand')

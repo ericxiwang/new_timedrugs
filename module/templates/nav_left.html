@@ -6,16 +6,19 @@
         <div class="panel panel-success">
           <div class="panel-heading">
             <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#{{ menu_cate[0] }}">{{ menu_cate[1] }}</a>
+              <a data-toggle="collapse" data-parent="#accordion" href="#{{ menu_cate.id }}">{{ menu_cate.menu_cate_name }}</a>
             </h4>
           </div>
-            <div id="{{ menu_cate[0] }}" class="panel-collapse collapse">
+            <div id="{{ menu_cate.id }}" class="panel-collapse collapse">
               <div class="menu_1">
                 {% for pro_cate in menu_list[1] %}
+                  {% if pro_cate.upper_cate == menu_cate.id|string %}
 
-                  {% if pro_cate[0] == menu_cate[0]|string %}
+                  <!--<a data-toggle="collapse" data-parent="#accordion" href="index/{{ pro_cate.id }}" >&nbsp;{{ pro_cate.pro_cate_name }}&nbsp;</a>-->
+                  <a href="{{ url_for('index',cate_id =pro_cate.id) }}">{{ pro_cate.pro_cate_name }}</a>
 
-                  <a data-toggle="collapse" data-parent="#accordion" href="#{{ menu_cate[0] }}">&nbsp;{{ pro_cate[1] }}&nbsp;</a>
+
+
                   {% endif %}
 
                 {% endfor %}
