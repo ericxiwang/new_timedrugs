@@ -1,45 +1,51 @@
 
-<div class="container-fuid meta_nav">
+<div class="container-fuid top-banner">
 
-    <div class="meta_nav_left" style="float:left;padding-left:10%;text-align:center">
+    <div class="meta_nav_left top-banner_1 menu_1" style="float:left;padding-left:10%;text-align:center">
         <p class="text-warning">
             欢迎光临好时光保健商城
         </p>
     </div>
-    <div class="meta_nav_right">
+    <div class="meta_nav_right top-banner_1 top_bar">
         <a href="">
             <span class="glyphicon glyphicon-shopping-cart">
-                查看当前购物车
+                查看当前购物车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
         </a>
         <a href={{ url_for('user_register') }}>
             <span class="glyphicon glyphicon-user">
-                新顾客注册
+                新顾客注册&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
         </a>
         {% if not session.logged_in %}
             <a href={{ url_for('user_login') }}>
             <span class="glyphicon glyphicon-log-in">
-                老顾客登录
+                老顾客登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </a>
         {% else %}
             <a href="">
             <span class="glyphicon glyphicon-certificate">
-                订单查看
+                订单查看&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </a>
             <a href="">
             <span class="glyphicon glyphicon-cog">
-                用户信息修改
+                用户信息修改&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </a>
             <a href="">
             <span class="glyphicon glyphicon-arrow-down">
-                用户登出
+                用户登出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             </span>
             </a>
+
         {% endif %}
+            <a href="http://www.weibo.com/beimeihaoshiguang" target="_blank">
+            <span class="glyphicon glyphicon-globe">
+                好时光官方微博&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            </a>
 
 
 
@@ -51,3 +57,6 @@
 
 </div>
 
+<div class="col-lg-12 panel panel-danger" style="height:20px">
+
+</div>
