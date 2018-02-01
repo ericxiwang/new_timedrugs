@@ -28,11 +28,11 @@
 
 
 
+<form class="col-md-9 col-lg-9 panel panel-danger product_list form-horizontal" action='/shopping_cart' method='POST' role='form'>
 
 
 
 
-<div class="col-md-9 col-lg-9 panel panel-danger product_list" >
 <div class='col-md-5 col-lg-5 panel panel-danger order-page text-danger' style='text-align:center'>
 <h3>{{ selected_product.pro_name }}</h3>
     <img data-toggle='magnify' class='img-thumbnail preview-pic' src="{{ url_for('static',filename= selected_product.pro_img ) }}" style='height:85%;width:85%'/>
@@ -44,6 +44,7 @@
         <li class='list-group-item'>产品品牌: {{ selected_product.pro_brand}}</li>
         <li class='list-group-item'>规格: {{ selected_product.pro_spec}}</li>
         <li class='list-group-item'>邮寄重量: {{ selected_product.pro_weight}}公斤</li>
+        <input type='hidden' value='{{ selected_product.pro_code }}' name='pro_code'>
         {% if selected_product.promotion_enabled|string == '1' %}
 
             {% if discount_info.pro_type|string =='1' %}
@@ -83,9 +84,6 @@
 
 
 
-
-
-
 <div class='col-md-5 col-lg-5 panel panel-danger order-page-m' >
     <a href='http://www.weibo.com/beimeihaoshiguang' target='_blank'><img width='38' height='38' src='image/icon_img/weibo.jpg'>新浪微博</a>
           &nbsp;&nbsp;&nbsp;&nbsp;
@@ -103,6 +101,7 @@
 
         <div class='col-md-5 col-lg-5'>
           <button type='submit' class='btn btn-danger glyphicon glyphicon-shopping-cart' style='height:50px;margin-right:20px'>&nbsp;加入购物车</button>
+
         </div>
 </div>
 
@@ -123,5 +122,5 @@
 </div>
 
 </div>
-
+</form>
 {% endblock %}

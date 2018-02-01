@@ -4,16 +4,16 @@
 
 <div class="col-md-9 col-lg-9 panel panel-danger product_list" >
       <!-- one inventory unit -->
-    {% for id,pro_name,pro_o_price,pro_img in all_products %}
+    {% for pro_code,pro_name,pro_o_price,pro_img in all_products %}
 
       <div class="col-md-3 col-lg-3 panel panel-danger inventory">
-          <a href="{{ url_for('product_introduce',id = id) }}" role="button" >
+          <a href="{{ url_for('product_introduce',pro_code = pro_code) }}" role="button" >
             <img class="img-thumbnail preview-pic" src="{{ url_for('static',filename = pro_img ) }}"/>
           </a>
       <p>{{ pro_name }}</p>
       <p>买3送1</p>
       <p>${{ pro_o_price }}</p>
-          <a href="{{ url_for('product_introduce',id = id) }}" role="button" class="btn btn-warning">点击详情</a>
+          <a href="{{ url_for('product_introduce',pro_code = pro_code) }}" role="button" class="btn btn-warning">点击详情</a>
       </div>
     {% endfor %}
 

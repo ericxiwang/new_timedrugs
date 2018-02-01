@@ -9,34 +9,47 @@
     <div class="meta_nav_right top-banner_1 top_bar">
         <a href="">
             <span class="glyphicon glyphicon-shopping-cart">
-                查看当前购物车&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                查看当前购物车&nbsp;&nbsp;&nbsp;
             </span>
         </a>
-        <a href={{ url_for('user_register') }}>
+        <!-- user not login in -->
+        {% if not session['user_email'] %}
+            <a href={{ url_for('user_register') }}>
             <span class="glyphicon glyphicon-user">
-                新顾客注册&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </span>
-        </a>
-        {% if not session.logged_in %}
-            <a href={{ url_for('user_login') }}>
-            <span class="glyphicon glyphicon-log-in">
-                老顾客登录&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                新顾客注册&nbsp;&nbsp;&nbsp;
             </span>
             </a>
-        {% else %}
+            <a href={{ url_for('user_login') }}>
+            <span class="glyphicon glyphicon-log-in">
+                老顾客登录&nbsp;&nbsp;&nbsp;
+            </span>
+            </a>
+
+
+        <!-- if user is login -->
+        {%  elif session['user_email'] %}
+
+
+
+
             <a href="">
             <span class="glyphicon glyphicon-certificate">
-                订单查看&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                订单查看&nbsp;&nbsp;&nbsp;
+            </span>
+            </a>
+            <a href="">
+            <span class="glyphicon glyphicon-user">
+                {{ session['user_name'] }}&nbsp;你好！
             </span>
             </a>
             <a href="">
             <span class="glyphicon glyphicon-cog">
-                用户信息修改&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                用户信息修改&nbsp;&nbsp;&nbsp;
             </span>
             </a>
-            <a href="">
+            <a href={{ url_for('user_logout') }}>
             <span class="glyphicon glyphicon-arrow-down">
-                用户登出&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                用户登出&nbsp;&nbsp;&nbsp;
             </span>
             </a>
 
