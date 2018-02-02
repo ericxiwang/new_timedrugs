@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block shopping_cart %}
+<div class='col-md-9 col-lg-9 panel panel-danger product_list' style='float:right;padding-top:15px;'>
+<form action = 'user_payment.php' method='POST' enctype='multipart/form-data'>
+
+
+<table class='table  table-bordered table-hover table-condensed'>
+<thead>
+<tr style='width:30px;'>
+    <th>产品图片</th>
+    <th>产品名称</th>
+    <th>产品单价</th>
+    <th>产品数量</th>
+    <th>产品总价</th>
+    <th>修改订单</th>
+</tr>
+</thead>
+    <tbody>
+
+    {% for each_item in session['item_list'] %}
+
+    <tr>
+        <td>{{ each_item.pro_code }}</td>
+        <td>{{ each_item.pro_quantity}}</td>
+        <td>test</td>
+        <td>test</td>
+        <td>test</td>
+        <td><a href="{{ url_for('shopping_cart',pro_code = each_item.pro_code) }}" role="button" class="btn btn-warning">删除商品</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+</form>
+
+</div>
+
+
+{% endblock %}
+

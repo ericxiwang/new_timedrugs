@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 from models import *
 from flask_login import LoginManager
 from shopping_cart import shopping_cart
+
 reload(sys)
 sys.setdefaultencoding("utf-8")
 app = Flask(__name__)
@@ -23,6 +24,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 my_cart = shopping_cart()
+
+
 @login_manager.user_loader
 def load_user(email):
     return User.get(email)
@@ -77,20 +80,19 @@ def user_login():
 
             return redirect(url_for('index'))
         else:
-            return render_template('user_login.html',error_code="密码错误",menu_list=query_nav_left())
+            return render_template('user_login.html', error_code="密码错误", menu_list=query_nav_left())
 
     else:
         return render_template('user_login.html', menu_list=query_nav_left())
+
+
 @app.route('/user_logout')
 def user_logout():
-    if 'user_email' in session:
+    session.clear()
+    # if 'user_email' in session:
 
-        session.clear()
-        return redirect(url_for('index'))
-
-
-
-
+    #   session.clear()
+    return redirect(url_for('index'))
 
 
 @app.route('/product_introduce/<string:pro_code>')
@@ -118,16 +120,22 @@ def product_recommand():
 def product_promotion():
     return render_template('product_promotion.html')
 
-@app.route('/shopping_cart',methods=['POST','GET'])
-#@app.route('/shopping_cart/<string:pro_code>',methods=['POST'])
 
-def shopping_cart():
-    if request.method == 'POST' or request.method == 'GET':
-        pro_quantity = request.form['text_box']
-        pro_code = request.form['pro_code']
+@app.route('/shopping_cart', methods=['POST', 'GET'])
+@app.route('/shopping_cart/<string:pro_code>', methods=['GET'])
+def shopping_cart(pro_code=None):
+    if request.method == 'GET':
+        if pro_code:
+            my_cart.remove_item(pro_code)
+            return redirect(url_for('shopping_cart'))
+        else:
+            return render_template('shopping_cart.html', menu_list=query_nav_left())
+    elif request.method == 'POST':
+        if request.form['add_item']:
+            pro_quantity = request.form['text_box']
+            pro_code = request.form['pro_code']
+            my_cart.add_item(pro_code, pro_quantity)
 
+            print session['item_list']
 
-        a = my_cart.add_item(pro_code,pro_quantity)
-        print a
-
-        return redirect(url_for('index'))
+            return redirect(url_for('shopping_cart'))
