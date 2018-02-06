@@ -61,20 +61,20 @@ class shopping_cart:
 
 
                 list_all.append(dict(new_item))
-                print list_all
+
 
 
         else:
             all_item_list = 'no item'
             list_all = 'no item'
-        print "bb",list_all
+
         return list_all
 
     def get_promotion(self,promotion_id,pro_o_price,pro_quantity,pro_weight):
         promotion_suit = dict()
         current_discount = pro_discount.query.filter_by(promotion_id=promotion_id).first()
 
-        print "AA",current_discount.pro_type
+
         # =========== discount =========
         if current_discount.pro_type == 1:
             discount_precentage = current_discount.discount_value
@@ -86,7 +86,6 @@ class shopping_cart:
             pro_buy = current_discount.pro_buy
             pro_get = current_discount.pro_get
             real_get = float(pro_quantity)/float(pro_buy)
-            #print "AAAAAA",real_get
             final_quantity = int(pro_quantity) + int(real_get)
             promotion_suit = {'pro_type':'2','pro_quantity':int(pro_quantity),'real_get':int(real_get)}
 
