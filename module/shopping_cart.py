@@ -1,5 +1,5 @@
 from flask import session
-
+from models import product_info,pro_discount
 class shopping_cart:
 
     '''def __init__(self):
@@ -17,7 +17,7 @@ class shopping_cart:
             return session['item_list']
         else:
             session['item_list'] = []
-            session['item_list'].append(each_pro)
+            session['item_list'].append(dict(each_pro))
             return session['item_list']
 
 
@@ -40,6 +40,65 @@ class shopping_cart:
 
         if session['user_email']:
             session['item_list'] = self.item_list
+    def item_list_all(self):
+        new_item = {}
+        if session['item_list']:
+            list_all = []
+
+            for each_line in session['item_list']:
+                each_item = product_info.query.filter_by(pro_code=each_line['pro_code']).first()
+                new_item['pro_code'] =each_item.pro_code
+                new_item['pro_img'] = each_item.pro_img
+                new_item['pro_name'] = each_item.pro_name
+                new_item['pro_o_price'] = each_item.pro_o_price
+                new_item['pro_quantity'] = each_line['pro_quantity']
+                if each_item.promotion_id != 0:
+                    #self.get_promotion(each_item.promotion_id)
+                    new_item['pro_promotion'] = self.get_promotion(each_item.promotion_id,each_item.pro_o_price,each_line['pro_quantity'],each_item.pro_weight)
+                else:
+                    new_item['pro_promotion'] = dict()
+
+
+
+                list_all.append(dict(new_item))
+                print list_all
+
+
+        else:
+            all_item_list = 'no item'
+            list_all = 'no item'
+        print "bb",list_all
+        return list_all
+
+    def get_promotion(self,promotion_id,pro_o_price,pro_quantity,pro_weight):
+        promotion_suit = dict()
+        current_discount = pro_discount.query.filter_by(promotion_id=promotion_id).first()
+
+        print "AA",current_discount.pro_type
+        # =========== discount =========
+        if current_discount.pro_type == 1:
+            discount_precentage = current_discount.discount_value
+            final_price = pro_o_price*discount_precentage
+            promotion_suit = {'pro_type':'1','final_price':final_price}
+
+        # =========== buy and get
+        elif current_discount.pro_type == 2:
+            pro_buy = current_discount.pro_buy
+            pro_get = current_discount.pro_get
+            real_get = float(pro_quantity)/float(pro_buy)
+            #print "AAAAAA",real_get
+            final_quantity = int(pro_quantity) + int(real_get)
+            promotion_suit = {'pro_type':'2','pro_quantity':int(pro_quantity),'real_get':int(real_get)}
+
+        # ============ special price ======
+        elif current_discount.pro_type == 3:
+            pro_price = current_discount.pro_price
+            promotion_suit = {'pro_type':'3','pro_o_price':pro_o_price,'pro_price':pro_price}
+
+        else:
+            print "no promotion"
+        return promotion_suit
+
 
 
 

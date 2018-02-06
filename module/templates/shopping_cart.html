@@ -16,20 +16,38 @@
 </tr>
 </thead>
     <tbody>
-
-    {% for each_item in session['item_list'] %}
+    {% if list_all != 'no item' %}
+    {% for each_item in list_all %}
 
     <tr>
-        <td>{{ each_item.pro_code }}</td>
+        <td><img class="img-thumbnail preview-pic" src="{{ url_for('static',filename = each_item.pro_img ) }}" height="100" width="100"/></td>
+        <td>{{ each_item.pro_name }}</td>
+        <td>{{ each_item.pro_o_price }}</td>
+
+        {% if each_item.pro_promotion['pro_type'] %}
+            {% if each_item.pro_promotion['pro_type'] == '2' %}
+                <td>
+                {{ each_item.pro_promotion['pro_quantity'] }} + {{ each_item.pro_promotion['real_get'] }}
+               </td>
+            {% endif %}
+        {% else %}
         <td>{{ each_item.pro_quantity}}</td>
-        <td>test</td>
-        <td>test</td>
-        <td>test</td>
+
+        {% endif %}
+
+
+            <td>test1</td>
+
+
+
+
+
+
         <td><a href="{{ url_for('shopping_cart',pro_code = each_item.pro_code) }}" role="button" class="btn btn-warning">删除商品</a></td>
     </tr>
     {% endfor %}
     </tbody>
-
+{% endif %}
 </table>
 </form>
 

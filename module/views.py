@@ -8,7 +8,7 @@ from flask import flash
 from werkzeug.utils import secure_filename
 # from models import user_info,product_info,pro_category,menu_category,db
 from models import *
-from flask_login import LoginManager
+
 from shopping_cart import shopping_cart
 
 reload(sys)
@@ -19,16 +19,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Istuary-1118@192.168.0.110
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
-login_manager = LoginManager()
-
-login_manager.init_app(app)
 
 my_cart = shopping_cart()
-
-
-@login_manager.user_loader
-def load_user(email):
-    return User.get(email)
 
 
 def query_nav_left():
@@ -48,7 +40,7 @@ def index(cate_id=None):
                                         product_info.pro_name,
                                         product_info.pro_o_price,
                                         product_info.pro_img).filter_by(pro_category=cate_id).all()
-        return render_template('index.html', all_products=all_products, menu_list=query_nav_left())
+
 
     else:
 
@@ -57,7 +49,7 @@ def index(cate_id=None):
                                         product_info.pro_o_price,
                                         product_info.pro_img).all()
 
-        return render_template('index.html', all_products=all_products, menu_list=query_nav_left())
+    return render_template('index.html', all_products=all_products, menu_list=query_nav_left())
 
 
 @app.route('/user_register')
@@ -129,13 +121,14 @@ def shopping_cart(pro_code=None):
             my_cart.remove_item(pro_code)
             return redirect(url_for('shopping_cart'))
         else:
-            return render_template('shopping_cart.html', menu_list=query_nav_left())
+
+            return render_template('shopping_cart.html', menu_list=query_nav_left(),list_all=my_cart.item_list_all())
     elif request.method == 'POST':
         if request.form['add_item']:
             pro_quantity = request.form['text_box']
             pro_code = request.form['pro_code']
             my_cart.add_item(pro_code, pro_quantity)
 
-            print session['item_list']
+
 
             return redirect(url_for('shopping_cart'))
