@@ -75,24 +75,41 @@ class shopping_cart:
         current_discount = pro_discount.query.filter_by(promotion_id=promotion_id).first()
 
 
+
         # =========== discount =========
         if current_discount.pro_type == 1:
             discount_precentage = current_discount.discount_value
             final_price = pro_o_price*discount_precentage
-            promotion_suit = {'pro_type':'1','final_price':final_price}
+
+            total_price = final_price*pro_quantity
+            total_weight = pro_weight * pro_quantity
+
+            promotion_suit = {'pro_type':'1','final_price':final_price,'total_price':total_price,'total_weight':total_weight}
 
         # =========== buy and get
         elif current_discount.pro_type == 2:
             pro_buy = current_discount.pro_buy
             pro_get = current_discount.pro_get
-            real_get = float(pro_quantity)/float(pro_buy)
+            real_get = int(float(pro_quantity)/float(pro_buy))*int(pro_get)
             final_quantity = int(pro_quantity) + int(real_get)
-            promotion_suit = {'pro_type':'2','pro_quantity':int(pro_quantity),'real_get':int(real_get)}
+
+            total_weight = pro_weight * final_quantity
+            total_price = pro_o_price * int(pro_quantity)
+
+            promotion_suit = {'pro_type':'2','pro_quantity':int(pro_quantity),'real_get':int(real_get),'total_price':total_price,'total_weight':total_weight}
 
         # ============ special price ======
         elif current_discount.pro_type == 3:
             pro_price = current_discount.pro_price
-            promotion_suit = {'pro_type':'3','pro_o_price':pro_o_price,'pro_price':pro_price}
+            total_price = pro_price*pro_quantity
+            total_weight = pro_weight * pro_quantity
+            promotion_suit = {'pro_type':'3','pro_o_price':pro_o_price,'pro_price':pro_price,'total_price':total_price,'total_weight':total_weight}
+
+        # ============ free shipping ======
+        elif current_discount.pro_type == 4:
+            total_weight = 0
+            total_price = pro_o_price*pro_quantity
+            promotion_suit = {'pro_type':'4','total_price':total_price,'total_weight':total_weight}
 
         else:
             print "no promotion"

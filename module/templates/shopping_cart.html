@@ -20,23 +20,53 @@
     {% for each_item in list_all %}
 
     <tr>
-        <td><img class="img-thumbnail preview-pic" src="{{ url_for('static',filename = each_item.pro_img ) }}" height="100" width="100"/></td>
+        <td><img src="{{ url_for('static',filename = each_item.pro_img ) }}" height="100" width="100"/></td>
         <td>{{ each_item.pro_name }}</td>
         <td>{{ each_item.pro_o_price }}</td>
 
         {% if each_item.pro_promotion['pro_type'] %}
-            {% if each_item.pro_promotion['pro_type'] == '2' %}
+
+            <!-- 折扣百分比-->
+            {% if each_item.pro_promotion['pro_type'] == '1' %}
                 <td>
-                {{ each_item.pro_promotion['pro_quantity'] }} + {{ each_item.pro_promotion['real_get'] }}
-               </td>
+                    {{ each_item.pro_promotion['final_price'] }} <br/>
+                    （折扣价）
+                </td>
+                <td>
+                    {% set total_price=each_item.pro_promotion['final_price']*2 %}
+                    {{ total_price }}
+                </td>
+            <!-- 买赠优惠 -->
+            {% elif each_item.pro_promotion['pro_type'] == '2' %}
+                <td>
+                    {{ each_item.pro_promotion['pro_quantity'] }}
+                    {% if each_item.pro_promotion['real_get'] != 0 %}
+                        + {{ each_item.pro_promotion['real_get'] }}
+                    {% endif %}
+
+                </td>
+
+
+            <!-- 特价优惠-->
+            {% elif each_item.pro_promotion['pro_type'] == '3' %}
+
+                <td>{{ each_item.pro_promotion['pro_o_price'] }} <br/>
+                    {{ each_item.pro_promotion['pro_price'] }}
+                </td>
+
+
+
             {% endif %}
+        <td>
+                    ${{ each_item.pro_promotion['total_price'] }}
+
+                </td>
         {% else %}
         <td>{{ each_item.pro_quantity}}</td>
 
         {% endif %}
 
 
-            <td>test1</td>
 
 
 
