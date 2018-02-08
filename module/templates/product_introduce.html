@@ -45,34 +45,72 @@
         <li class='list-group-item'>规格: {{ selected_product.pro_spec}}</li>
         <li class='list-group-item'>邮寄重量: {{ selected_product.pro_weight}}公斤</li>
         <input type='hidden' value='{{ selected_product.pro_code }}' name='pro_code'>
-        {% if selected_product.promotion_enabled|string == '1' %}
+        {% if selected_product.promotion_id|string != '0' %}
 
+            <!-- discount -->
             {% if discount_info.pro_type|string =='1' %}
-            <li class='list-group-item'>折扣:{{ discount_info.discount_value }}</li>
-            <li class='list-group-item'><del>零售价格(CAD):${{ selected_product.pro_o_price }}</del></li>
-            <li class='list-group-item'><h4 class='text-danger'>折扣价格(CAD):${{ selected_product.discount_price }}</h4></li>
-            <input type='hidden' value='{{ selected_product.promotion_id }}' name='notice_promotion'/>
+                <li class='list-group-item'>
+                    折扣:{{ discount_info.discount_value }}
+                </li>
+                <li class='list-group-item'>
+                    <del>
+                        零售价格(CAD):${{ selected_product.pro_o_price }}
+                    </del>
+                </li>
+                <li class='list-group-item'>
+                    <h4 class='text-danger'>
+                        折扣价格(CAD):${{ '%0.1f' | format(selected_product.pro_o_price*discount_info.discount_value*0.01|float) }}
+                    </h4>
+                </li>
 
+            <!-- buy and get -->
             {% elif discount_info.pro_type|string == '2' %}
-            <li class='list-group-item'><h4 class='text-danger'>买 {{ discount_info.pro_buy }} 赠 {{ discount_info.pro_get }}</h4></li>
-            <li class='list-group-item'><h4>零售价格(CAD):${{ selected_product.pro_o_price }}</h4></li>
-            <input type='hidden' value='{{ selected_product.promotion_id }}' name='notice_promotion'>
+                <li class='list-group-item'>
+                    <h4 class='text-danger'>
+                        买 {{ discount_info.pro_buy }} 赠 {{ discount_info.pro_get }}
+                    </h4>
+                </li>
+                <li class='list-group-item'>
+                    <h4>
+                        零售价格(CAD):${{ selected_product.pro_o_price }}
+                    </h4>
+                </li>
 
+            <!-- special price -->
             {% elif discount_info.pro_type|string == '3' %}
-            <li class='list-group-item'><del class='text-danger'>零售价格(CAD): ${{ selected_product.pro_o_price }}</del></li>
-            <li class='list-group-item'><h4 class='text-success'>优惠价格(CAD): ${{ selected_product.pro_price }}</h4></li>
-            <input type='hidden' value='{{ selected_product.promotion_id }}' name='notice_promotion'>
+                <li class='list-group-item'>
+                    <del class='text-danger'>
+                        零售价格(CAD): ${{ selected_product.pro_o_price }}
+                    </del>
+                </li>
+                <li class='list-group-item'>
+                    <h4 class='text-success'>
+                        优惠价格(CAD): ${{ selected_product.pro_price }}
+                    </h4>
+                </li>
 
+            <!-- free shipping -->
             {% elif discount_info.pro_type|string == '4' %}
-            <li class='list-group-item'><h4>零售价格(CAD): ${{ selected_product.pro_o_price }}</h4></li>
-            <li class='list-group-item'><h3 class='text-danger'>免运费</h3></li>
-            <input type='hidden' value='{{ selected_product.promotion_id }}' name='notice_promotion'>
-
+                <li class='list-group-item'>
+                    <h4>
+                        零售价格(CAD): ${{ selected_product.pro_o_price }}
+                    </h4>
+                </li>
+                <li class='list-group-item'>
+                    <h3 class='text-danger'>
+                        免运费
+                    </h3>
+                </li>
 
             {% endif %}
+            <input type='hidden' value='{{ selected_product.promotion_id }}' name='notice_promotion'>
         {% else %}
-        <li class='list-group-item'><h4>零售价格(CAD): ${{ selected_product.pro_o_price }}</h4></li>
-        <input type='hidden' value='no_promotion' name='notice_promotion'>
+            <li class='list-group-item'>
+                <h4>
+                    零售价格(CAD): ${{ selected_product.pro_o_price }}
+                </h4>
+            </li>
+            <input type='hidden' value='no_promotion' name='notice_promotion'>
 
         {% endif %}
 
@@ -85,9 +123,10 @@
 
 
 <div class='col-md-5 col-lg-5 panel panel-danger order-page-m' >
-    <a href='http://www.weibo.com/beimeihaoshiguang' target='_blank'><img width='38' height='38' src='image/icon_img/weibo.jpg'>新浪微博</a>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-    <a href='http://www.weibo.com/beimeihaoshiguang' target='_blank'><img width='38' height='38' src='image/icon_img/weichat.png'>腾讯微信</a>
+    &nbsp;&nbsp;&nbsp;<a href='http://www.weibo.com/beimeihaoshiguang' target='_blank'><img width='38' height='38' src='/static/image/weibo.jpg'>&nbsp;&nbsp;&nbsp;新浪微博</a>
+    <br>
+    <br>
+    &nbsp;&nbsp;&nbsp;<a href='http://www.weibo.com/beimeihaoshiguang' target='_blank'><img width='38' height='38' src='/static/image/weichat.png'>&nbsp;&nbsp;&nbsp;腾讯微信</a>
 
 </div>
 

@@ -34,21 +34,49 @@ def query_nav_left():
 @app.route('/index')
 @app.route('/index/<int:cate_id>')
 def index(cate_id=None):
+
     if cate_id != None:
 
-        all_products = db.session.query(product_info.pro_code,
+        '''all_products = db.session.query(product_info.pro_code,
                                         product_info.pro_name,
                                         product_info.pro_o_price,
-                                        product_info.pro_img).filter_by(pro_category=cate_id).all()
+                                        product_info.pro_img,
+                                        product_info.promotion_id).filter_by(pro_category=cate_id).all()'''
 
-
+        all_products = db.session.query(product_info.pro_code,
+                                        product_info.pro_name,
+                                        product_info.pro_img,
+                                        product_info.pro_o_price,
+                                        product_info.promotion_id,
+                                        pro_discount.pro_buy,
+                                        pro_discount.pro_get,
+                                        pro_discount.discount_value,
+                                        pro_discount.pro_type,
+                                        pro_discount.pro_price,
+                                        ).filter(product_info.promotion_id == pro_discount.promotion_id).filter_by(pro_category=cate_id).all()
     else:
 
-        all_products = db.session.query(product_info.pro_code,
+        '''#all_products = db.session.query(product_info.pro_code,
                                         product_info.pro_name,
                                         product_info.pro_o_price,
-                                        product_info.pro_img).all()
+                                        product_info.pro_img,
+                                        product_info.promotion_id).all()'''
 
+
+        all_products = db.session.query(product_info.pro_code,
+                                        product_info.pro_name,
+                                        product_info.pro_img,
+                                        product_info.pro_o_price,
+                                        product_info.promotion_id,
+                                        pro_discount.pro_buy,
+                                        pro_discount.pro_get,
+                                        pro_discount.discount_value,
+                                        pro_discount.pro_type,
+                                        pro_discount.pro_price,
+                                        ).filter(product_info.promotion_id==pro_discount.promotion_id).all()
+
+    for i in all_products:
+        print i.pro_img
     return render_template('index.html', all_products=all_products, menu_list=query_nav_left())
 
 
@@ -59,6 +87,7 @@ def user_register():
 
 @app.route('/user_login', methods=['POST', 'GET'])
 def user_login():
+
     error = None
     if request.method == 'POST':
         user_email = request.form['user_email']
@@ -91,7 +120,7 @@ def user_logout():
 def product_introduce(pro_code):
     selected_product = product_info.query.filter_by(pro_code=pro_code).first()
 
-    if selected_product.promotion_enabled == 1:
+    if selected_product.promotion_id != 0:
         discount_info = pro_discount.query.filter_by(promotion_id=selected_product.promotion_id).first()
 
     else:

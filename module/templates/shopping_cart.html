@@ -22,22 +22,27 @@
     <tr>
         <td><img src="{{ url_for('static',filename = each_item.pro_img ) }}" height="100" width="100"/></td>
         <td>{{ each_item.pro_name }}</td>
-        <td>{{ each_item.pro_o_price }}</td>
+
 
         {% if each_item.pro_promotion['pro_type'] %}
 
             <!-- 折扣百分比-->
             {% if each_item.pro_promotion['pro_type'] == '1' %}
                 <td>
-                    {{ each_item.pro_promotion['final_price'] }} <br/>
+                    <del>${{ each_item.pro_o_price }}<br/></del>
+
+                    ${{ each_item.pro_promotion['final_price'] }} <br/>
                     （折扣价）
                 </td>
                 <td>
-                    {% set total_price=each_item.pro_promotion['final_price']*2 %}
-                    {{ total_price }}
+                    {{ each_item['pro_quantity'] }}
                 </td>
+
             <!-- 买赠优惠 -->
             {% elif each_item.pro_promotion['pro_type'] == '2' %}
+                <td>
+                    ${{ each_item.pro_o_price }}
+                </td>
                 <td>
                     {{ each_item.pro_promotion['pro_quantity'] }}
                     {% if each_item.pro_promotion['real_get'] != 0 %}
@@ -57,7 +62,7 @@
 
 
             {% endif %}
-        <td>
+                    <td>
                     ${{ each_item.pro_promotion['total_price'] }}
 
                 </td>
