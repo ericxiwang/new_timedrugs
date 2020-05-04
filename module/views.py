@@ -11,11 +11,12 @@ from models import *
 
 from shopping_cart import shopping_cart
 
-reload(sys)
-sys.setdefaultencoding("utf-8")
+
 app = Flask(__name__)
 app.secret_key = 'timedrugs'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Istuary-1118@192.168.0.110:3306/timedrugs'
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Istuary-1118@192.168.0.140:3306/timedrugs'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
@@ -76,7 +77,7 @@ def index(cate_id=None):
                                         ).filter(product_info.promotion_id==pro_discount.promotion_id).all()
 
     for i in all_products:
-        print i.pro_img
+        print (i.pro_img)
     return render_template('index.html', all_products=all_products, menu_list=query_nav_left())
 
 
@@ -161,3 +162,9 @@ def shopping_cart(pro_code=None):
 
 
             return redirect(url_for('shopping_cart'))
+
+
+
+if __name__ == "__main__":
+
+    app.run(debug=True, host='0.0.0.0',port=8000)

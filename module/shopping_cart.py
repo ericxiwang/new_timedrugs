@@ -80,7 +80,7 @@ class shopping_cart:
 
     def get_promotion(self, promotion_id, **kwargs):
         for k, v in kwargs.items():
-            print k, v
+            print (k, v)
             exec (k + '=v')
 
         promotion_suit = dict()
@@ -135,7 +135,7 @@ class shopping_cart:
                               'total_weight': total_weight}
 
         else:
-            print "no promotion"
+            print ("no promotion")
         return promotion_suit
 
 
